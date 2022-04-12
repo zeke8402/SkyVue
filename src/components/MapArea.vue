@@ -1,5 +1,5 @@
 <template>
-    <l-map :zoom="zoom" style="height:100vh" :center="center">
+    <l-map :zoom="zoom" :center="center" ref="asgMap" class="asg-map">
         <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
         <l-marker :lat-lng="markerLatLng">
             <l-icon>
@@ -30,6 +30,14 @@ import { LMap, LTileLayer, LMarker, LIcon, LPopup } from 'vue2-leaflet';
 import { mapGetters } from 'vuex'
 import FlightCard from './FlightCard.vue'
 export default {
+    mounted() {
+        /*
+        Code to get the bounds of the map by lat/lng
+        this.$nextTick(() => {
+            console.log(this.$refs.asgMap.mapObject.getBounds())
+        })
+        */
+    },
     components: {
         FlightCard,
         LMap,
@@ -64,3 +72,8 @@ export default {
 
 }
 </script>
+<style scoped>
+.asg-map {
+    height: 100vh;
+}
+</style>
