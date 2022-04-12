@@ -2,7 +2,11 @@
     <v-container fill-height fluid>
             <div>Sky<span class="vue-text">Vue</span></div>
             <v-spacer></v-spacer>
-            <v-switch class="ma-2" dark inset label="Selected Flights" v-model="switchStatus" />
+            <v-switch dark inset class="ma-2" 
+                @click="toggleFilter" 
+                label="Selected Flights" 
+                v-model="switchStatus" 
+            />
     </v-container>
 </template>
 <script>

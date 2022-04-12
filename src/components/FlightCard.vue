@@ -13,7 +13,8 @@
         </v-card-text>
         <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn v-if="!isFlightSelected" color="success" dark @click="addFlightToSelected(index)">
+            <v-btn v-if="!isFlightSelected" @click="addFlightToSelected(index)" 
+                color="success" dark>
                 <div class="d-inline">
                     <v-icon small>mdi-binoculars</v-icon>
                 </div>
@@ -21,7 +22,8 @@
                     WATCH
                 </div>
             </v-btn>
-            <v-btn v-else color="warning" dark @click="removeFlightFromSelected(flight)">
+            <v-btn v-else @click="removeFlightFromSelected(index)" 
+                color="warning" dark>
                 <div class="d-inline">
                     <v-icon small>mdi-binoculars</v-icon>
                 </div>
