@@ -8,10 +8,14 @@ export default new Vuex.Store({
   state: {
     flightData: [],
     selectedFlights: [], // index of selected flights
+    filterSelectedFlights: false,
   },
   getters: {
     getAllFlights(state) {
       return state.flightData
+    },
+    getShownFlights(state, getters) {
+      return (state.filterSelectedFlights) ? getters.getSelectedFlights : state.flightData
     },
     getSelectedFlightIndexes(state) {
       return state.selectedFlights
@@ -23,6 +27,9 @@ export default new Vuex.Store({
     },
     getTotalFlights(state) {
       return state.flightData.length
+    },
+    getFilterStatus(state) {
+      return state.filterSelectedFlights
     }
   },
   mutations: {
@@ -34,7 +41,10 @@ export default new Vuex.Store({
     },
     removeSelectedFlight(state, index) {
       state.selectedFlights.splice(index, 1)
-    }
+    },
+    toggleSelectedFlightFilter(state) {
+      state.filterSelectedFlights = !state.filterSelectedFlights
+    },
   },
   actions: {
     initializeApp(context) {
@@ -60,6 +70,9 @@ export default new Vuex.Store({
     removeFlightFromSelected(context, flight) {
       let flightIndex = context.state.selectedFlights.indexOf(flight)
       context.commit('removeSelectedFlight', flightIndex)
+    },
+    toggleFilter(context) {
+      context.commit('toggleSelectedFlightFilter')
     }
   },
   modules: {

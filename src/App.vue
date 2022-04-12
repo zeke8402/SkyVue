@@ -2,11 +2,13 @@
   <v-app>
     <v-main>
       <div id="header">
-        Sky<span class="vue-text">Vue</span>
+            Sky<span class="vue-text">Vue</span>
+            <v-spacer></v-spacer>
+            <v-switch class="ma-2" dark inset label="Selected Flights" v-model="switchStatus" />
       </div>
       <div id="page">
         <div id="sideBar">
-          <div v-if="getSelectedFlights.length > 0" class="ma-2">
+          <div v-if="getSelectedFlights.length > 0" class="ma-1">
             <flight-card 
               v-for="(flight, i) in getSelectedFlights" 
               :key="i" 
@@ -32,7 +34,7 @@
                 It's Lafayette!
               </l-popup>
             </l-marker>
-            <l-marker v-for="(flight, f) in getAllFlights" :key="f" :lat-lng="flight.position">
+            <l-marker v-for="(flight, f) in getShownFlights" :key="f" :lat-lng="flight.position">
               <l-icon>
                 <div>
                   <v-icon size="32px" color="#34495E" :style="{ transform: 'rotate(' + getFlightRotation(flight) + 'deg)'}">mdi-airplane</v-icon>
@@ -56,7 +58,7 @@
 <script>
 import { LMap, LTileLayer, LMarker, LIcon, LPopup } from 'vue2-leaflet';
 import FlightCard from './components/FlightCard.vue';
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   components: {
@@ -73,10 +75,23 @@ export default {
   computed: {
     ...mapGetters([
       'getAllFlights',
+      'getShownFlights',
       'getSelectedFlights',
-    ])
+      'getFilterStatus'
+    ]),
+    switchStatus: {
+      get() {
+        return this.getFilterStatus
+      },
+      set() {
+        this.toggleFilter()
+      }
+    }
   },
   methods: {
+    ...mapActions([
+      'toggleFilter',
+    ]),
     getFlightRotation(flight) {
       return (Math.round(flight[10]) - 45).toString()
     }
