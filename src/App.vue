@@ -20,7 +20,7 @@
 import AppHeader from './components/AppHeader.vue'
 import AppSidebar from './components/AppSidebar.vue'
 import MapArea from './components/MapArea.vue'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -37,11 +37,6 @@ export default {
       'getShownFlights',
       'getSelectedFlights',
       'getFilterStatus'
-    ]),
-  },
-  methods: {
-    ...mapActions([
-      'toggleFilter',
     ]),
   },
 }
